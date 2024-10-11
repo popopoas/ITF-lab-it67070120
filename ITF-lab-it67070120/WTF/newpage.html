@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="All">
+        <div class="profile" id="profile">
+            <div class="notify"><h3>1</h3></div>
+        </div>
+        <h1><a href="https://github.com/popopoas" id="user">Hello world</a></h1>
+        <div><label>Set the username</label><input type="text" id="name" placeholder="Username"><button onclick="setName()">set</button></div>
+        <div><label>Set the profile</label><input type="text" id="pic" placeholder="Enter link"><button onclick="setImg()">set</button></div>
+        <h1>Phone number list</h1>
+        <div>
+            <input id="name101" placeholder="Name">
+            <input id="phone" placeholder="Phone number">
+            <button onclick="add()" class="button101">Add</button>
+            <button onclick="saveCSV()" class="button101">Export</button>
+        </div>
+        <table id = "table">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Phone number</th>
+            </tr>
+        </table>
+    </div>
+
+
+    <script>
+        const username = document.getElementById("user");
+        const profile = document.getElementById("profile");
+        const newdiv = document.getElementsByClassName("Container")
+        let phonenumber = []
+        let arr2 = []
+        let num = 0
+
+        function setName(){
+            username.textContent = document.getElementById("name").value+", kool kid klub";
+        }
+        function setImg(){
+            profile.style.backgroundImage = "url("+document.getElementById("pic").value+")";
+        }
+        function add(){
+            num += 1
+            const name = document.getElementById("name101").value
+            const phone = document.getElementById("phone").value
+            const cell1 = document.createElement("td")
+            const cell2 = document.createElement("td")
+            const cell3 = document.createElement("td")
+            cell1.textContent = num
+            cell2.textContent = name
+            cell3.textContent = phone
+            const row = document.createElement("tr")
+            arr2.push(num,name,phone)
+            phonenumber.push(arr2)
+            row.appendChild(cell1)
+            row.appendChild(cell2)
+            row.appendChild(cell3)
+            document.getElementById("table").appendChild(row)
+            arr = []
+            console.log(phonenumber)
+        }
+        function saveCSV() {
+            const csvContent = phonenumber.map(row => row.join(",")).join("\n"); // Convert array to CSV string
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "data.csv");
+            link.style.visibility = "hidden";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+};
+    </script>
+</body>
+</html>
